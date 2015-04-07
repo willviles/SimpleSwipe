@@ -3,12 +3,45 @@
   <head>
     <title>Simple Swipe Demo (Basic)</title>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/hammerjs/hammer.min.js"></script>
     <script src="../dist/simple-swipe.js"></script>
-    <link rel="stylesheet" type="text/css" href="../dist/style.css">
+    <link rel="stylesheet" type="text/css" href="../dist/simple-swipe.css">
     <meta name="viewport" content="user-scalable=no,width=device-width" />
   </head>
-
   <body>
-    <!-- App container -->
+    <div class="simple-swipe">
+    <!-- Stack -->
+      <ul class="simple-swipe-stack">
+        <li data-swipe-up="true" data-swipe-right="true" data-swipe-down="true" data-swipe-left="true">
+          Card 1
+        </li>
+        <li data-swipe-right="true" data-swipe-left="true">
+          Card 2
+        </li>
+        <li data-swipe-up="true" data-swipe-down="true">
+          Card 3
+        </li>
+        <li data-swipe-up="true" data-swipe-right="true" data-swipe-down="true" data-swipe-left="true">
+          Card 4
+        </li>
+      </ul>
+      <div class="simple-swipe-btns">
+        <!-- Inject buttons via jQuery. But in the meantime: -->
+        <ul>
+          <li>&larr;</li>
+          <li>&uarr;</li>
+          <li>&darr;</li>
+          <li>&rarr;</li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.simple-swipe-stack').SimpleSwipe({
+          something: true
+        });
+      });
+    </script>
   </body>
 </html>

@@ -1,3 +1,8 @@
-.simple-swipe-container {
-  color: red;
-}
+// REQUIRE COMPASS
+@import 'compass/reset';
+@import 'compass';
+@import 'compass/css3';
+@import 'compass/layout';
+
+@import 'scaffold';
+@import 'examples';

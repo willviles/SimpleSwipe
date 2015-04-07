@@ -1,0 +1,34 @@
+.simple-swipe {
+  @include stretch(0, 0, 0, 0);
+
+  // Stack
+  .simple-swipe-stack {
+    @include stretch(0, 0, 20%, 0);
+    li {
+      @include stretch(20px, 20px, 20px, 20px);
+      @include opacity(0);
+      @include scale(.8);
+      &:first-of-type {
+        @include opacity(1);
+        @include scale(1);
+        @include transition(all .2 linear)
+      }
+    }
+  }
+
+  // Buttons
+  .simple-swipe-btns {
+    @include stretch(80%, 0, 0, 0);
+    display: table; table-layout: fixed;
+    width: 100%; height: 20%;
+    ul {
+      display: table-row; width: 100%; height: 100%;
+      li {
+        display: table-cell; text-align: center; vertical-align: middle;
+        cursor: pointer;
+      }
+    }
+
+  }
+}
+

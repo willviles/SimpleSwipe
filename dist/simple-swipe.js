@@ -12,7 +12,11 @@ Author URI: http://vil.es/
   var SimpleSwipe = function( elem, options ){
       this.elem = elem;
       this.$elem = $(elem);
-      this.options = options;
+      this.$cards = this.$elem.find('li');
+      this.options = $.extend({
+        // Defaults
+        something: false
+      }, options);
     };
 
   // the plugin prototype
@@ -25,8 +29,28 @@ Author URI: http://vil.es/
 
     init: function() {
 
+
+
+      console.log('SimpleSwipe is being initiated');
+
       return this;
-    }
+    },
+
+    // Register Cards
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
+    registerCards: function() {
+
+    },
+
+    // Handle touch
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
+
   }; // End of all functions
 
   $.fn.SimpleSwipe = function(options) {
