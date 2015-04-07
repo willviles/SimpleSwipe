@@ -12,7 +12,7 @@
       &:first-of-type {
         @include opacity(1);
         @include scale(1);
-        @include transition(all .2 linear);
+        @include transition(all .3s easeInOut);
         z-index: 10;
       }
     }

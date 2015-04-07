@@ -47,6 +47,15 @@ Author URI: http://vil.es/
       setup: function() {
         // Get first card in the stack
         $card = this.$elem.find('li:first-of-type');
+
+
+        if (!$card.length > 0) {
+
+          this.$elem.trigger('cardsExhausted');
+
+          return false;
+        }
+
         this.$currentCard = $card;
 
         // Setup Hammer.js handler
@@ -117,17 +126,20 @@ Author URI: http://vil.es/
             direction = directionKeys[directionKey];
 
         if ($.inArray(direction, availableDirections) !== -1) {
-          this.card.next.call(this, direction)
+          this.card.throwOut.call(this, direction);
         } else {
           alert(direction + ' swipe NOT AVAILABLE');
         }
       },
 
-      // Move onto next card
-      ///////////////////////////////////////////////////////
-
-      next: function(direction) {
+      // Throw Out
+      throwOut: function(direction) {
+        // TO-DO: Animate dependent upon direction, then destroy...
+        this.$currentCard.remove();
+        // Send event
         this.$elem.trigger('swipeSuccess', direction);
+        // Setup next card
+        this.card.setup.call(this);
       }
 
     },

@@ -39,12 +39,14 @@
 
     <script type="text/javascript">
       $(document).ready(function() {
-        $('.simple-swipe-stack').SimpleSwipe({
-          something: true
+        var simpleSwipe = $('.simple-swipe-stack').SimpleSwipe();
+
+        simpleSwipe.on('swipeSuccess', function(event, direction) {
+          alert(direction + ' swipe SUCCESS!');
         });
 
-        $('.simple-swipe-stack').on('swipeSuccess', function(event, direction) {
-          alert(direction + ' swipe SUCCESS!');
+        simpleSwipe.on('cardsExhausted', function() {
+          alert('ALL CARDS EXHAUSTED');
         });
       });
     </script>
