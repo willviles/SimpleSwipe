@@ -116,18 +116,18 @@ Author URI: http://vil.es/
             directionKeys = {'8': 'up', '4': 'right', '2': 'left', '16': 'down'},
             direction = directionKeys[directionKey];
 
-        alert(direction + ' swiped');
-
         if ($.inArray(direction, availableDirections) !== -1) {
-          console.log(direction + ' swipe is an available direction.');
-        };
+          this.card.next.call(this, direction)
+        } else {
+          alert(direction + ' swipe NOT AVAILABLE');
+        }
       },
 
       // Move onto next card
       ///////////////////////////////////////////////////////
 
-      next: function() {
-        console.log('Awesome, we have successfully swiped');
+      next: function(direction) {
+        alert(direction + ' swipe SUCCESS!');
       }
 
     },
