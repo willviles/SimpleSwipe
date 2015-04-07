@@ -8,10 +8,12 @@
       @include stretch(20px, 20px, 20px, 20px);
       @include opacity(0);
       @include scale(.8);
+      z-index: -1;
       &:first-of-type {
         @include opacity(1);
         @include scale(1);
-        @include transition(all .2 linear)
+        @include transition(all .2 linear);
+        z-index: 10;
       }
     }
   }

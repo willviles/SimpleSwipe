@@ -68,7 +68,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
       -moz-transform: scale(0.8, 0.8);
       -ms-transform: scale(0.8, 0.8);
       -webkit-transform: scale(0.8, 0.8);
-      transform: scale(0.8, 0.8); }
+      transform: scale(0.8, 0.8);
+      z-index: -1; }
       .simple-swipe .simple-swipe-stack li:first-of-type {
         filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
         opacity: 1;
@@ -79,7 +80,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
         -moz-transition: all linear;
         -o-transition: all linear;
         -webkit-transition: all linear;
-        transition: all linear; }
+        transition: all linear;
+        z-index: 10; }
   .simple-swipe .simple-swipe-btns {
     position: absolute;
     top: 80%;
