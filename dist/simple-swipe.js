@@ -12,10 +12,16 @@ Author URI: http://vil.es/
   var SimpleSwipe = function( elem, options ){
       this.elem = elem;
       this.$elem = $(elem);
-      this.$currentCard = this.$elem.find('li:first-of-type');
+      this.$stack = this.$elem.find('.simple-swipe-stack');
+      this.$currentCard = this.$stack.find('li:first-of-type');
       this.options = $.extend({
         // Defaults
-        something: false
+        buttonText: {
+          'left': '&larr;',
+          'up': '&uarr;',
+          'down': '&darr;',
+          'right': '&rarr;'
+        }
       }, options);
     };
 
@@ -46,16 +52,15 @@ Author URI: http://vil.es/
 
       setup: function() {
         // Get first card in the stack
-        $card = this.$elem.find('li:first-of-type');
+        $card = this.$stack.find('li:first-of-type');
 
-
+        // If no cards, send cardsExhausted callback
         if (!$card.length > 0) {
-
           this.$elem.trigger('cardsExhausted');
-
           return false;
         }
 
+        // Otherwise, let's set up the card
         this.$currentCard = $card;
 
         // Setup Hammer.js handler
@@ -63,7 +68,10 @@ Author URI: http://vil.es/
             availableDirections = this.card.getAvailableDirections.call(this),
             that = this;
 
-        // Set pan options
+        // Setup buttons
+        this.buttons.setup.call(this, availableDirections);
+
+        // Set pan & swipe options
         card.get('pan').set({ direction: Hammer.DIRECTION_ALL });
         card.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 20 });
 
@@ -72,15 +80,16 @@ Author URI: http://vil.es/
           that.card.handleSwipe.call(that, event, availableDirections);
         });
 
-        card.on('panstart', function(event) {
-          that.$elem.trigger('swipeStart');
-        });
+        // Starting the swipe
+        card.on('panstart', function(event) { that.$elem.trigger('swipeStart'); });
 
+        // Moving the card
         card.on('panmove', function(event) {
           that.$elem.trigger('swipeMove', {x: event.deltaX, y: event.deltaY});
           that.card.drag.call(that, event.deltaX, event.deltaY);
         });
 
+        // Dropping the card
         card.on('panend', function(event) {
           that.$elem.trigger('swipeDrop');
           that.card.springBack.call(that);
@@ -159,6 +168,28 @@ Author URI: http://vil.es/
       }
 
     },
+
+    buttons: {
+
+      setup: function(availableDirections) {
+        var $simpleSwipeBtns = this.$elem.find('.simple-swipe-btns'),
+            $buttonList = $simpleSwipeBtns.find('ul'),
+            btns = '',
+            that = this;
+
+        console.log(availableDirections);
+
+        $.each(availableDirections, function(i, direction) {
+          var buttonText = that.options.buttonText[direction];
+          btns = btns + '<li>' + buttonText + '</li>';
+        });
+
+        console.log(btns);
+
+        $buttonList.html('').append(btns);
+      }
+
+    }
 
 
   }; // End of all functions

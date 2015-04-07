@@ -27,27 +27,25 @@
         </li>
       </ul>
       <div class="simple-swipe-btns">
-        <!-- Inject buttons via jQuery. But in the meantime: -->
         <ul>
-          <li>&larr;</li>
-          <li>&uarr;</li>
-          <li>&darr;</li>
-          <li>&rarr;</li>
+          <!-- Inject buttons via jQuery -->
         </ul>
       </div>
     </div>
 
     <script type="text/javascript">
       $(document).ready(function() {
-        var simpleSwipe = $('.simple-swipe-stack').SimpleSwipe();
+        var simpleSwipe = $('.simple-swipe').SimpleSwipe();
 
         simpleSwipe.on('swipeSuccess', function(event, direction) {
           alert(direction + ' swipe SUCCESS!');
         });
 
+/*
         simpleSwipe.on('swipeUnavailable', function(event, direction) {
           alert(direction + ' swipe unavailable!');
         });
+*/
 
         simpleSwipe.on('cardsExhausted', function() {
           console.log('All cards exhausted');
