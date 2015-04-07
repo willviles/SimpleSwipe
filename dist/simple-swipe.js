@@ -65,7 +65,7 @@ Author URI: http://vil.es/
 
         // Setup Hammer.js handler
         var card = new Hammer($card[0]),
-            availableDirections = this.card.getAvailableDirections.call(this),
+            availableDirections = this.card.availableDirections.call(this),
             that = this;
 
         // Setup buttons
@@ -96,8 +96,8 @@ Author URI: http://vil.es/
         });
       },
 
-      // Get Available Swipe Directions
-      getAvailableDirections: function() {
+      // Available Swipe Directions
+      availableDirections: function() {
         var card = this.$currentCard,
             defaultDirections = ['up', 'right', 'down', 'left'],
             availableDirections = [];
