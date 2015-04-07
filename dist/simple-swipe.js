@@ -73,19 +73,21 @@ Author URI: http://vil.es/
         });
 
         card.on('panstart', function(event) {
-          console.log('PAN START');
+          that.$elem.trigger('swipeStart');
         });
 
         card.on('panmove', function(event) {
+          that.$elem.trigger('swipeMove', {x: event.deltaX, y: event.deltaY});
           that.card.drag.call(that, event.deltaX, event.deltaY);
         });
 
         card.on('panend', function(event) {
+          that.$elem.trigger('swipeDrop');
           that.card.springBack.call(that);
         });
       },
 
-      // Set Directions
+      // Get Available Swipe Directions
       getAvailableDirections: function() {
         var card = this.$currentCard,
             defaultDirections = ['up', 'right', 'down', 'left'],
@@ -102,7 +104,6 @@ Author URI: http://vil.es/
 
       // Drag card
       ///////////////////////////////////////////////////////
-
       drag: function(x, y) {
         this.$currentCard.css({
          '-webkit-transform': 'translate3d(0, 0, 0) translate(' + x + 'px, ' + y + 'px)'
@@ -117,6 +118,14 @@ Author URI: http://vil.es/
         });
       },
 
+      // Throw Out
+      ///////////////////////////////////////////////////////
+      throwOut: function(direction) {
+        console.log(direction);
+        // TO-DO: Animate dependent upon direction, then destroy...
+        this.$currentCard.remove();
+      },
+
       // Handle Swipe
       ///////////////////////////////////////////////////////
       handleSwipe: function(event, availableDirections) {
@@ -126,20 +135,27 @@ Author URI: http://vil.es/
             direction = directionKeys[directionKey];
 
         if ($.inArray(direction, availableDirections) !== -1) {
-          this.card.throwOut.call(this, direction);
+          this.card.swipeSuccess.call(this, direction);
         } else {
-          alert(direction + ' swipe NOT AVAILABLE');
+          this.card.swipeUnavailable.call(this, direction);
         }
       },
 
-      // Throw Out
-      throwOut: function(direction) {
-        // TO-DO: Animate dependent upon direction, then destroy...
-        this.$currentCard.remove();
+      // Successful swipe
+      ///////////////////////////////////////////////////////
+      swipeSuccess: function(direction) {
+        // Throw the card out
+        this.card.throwOut.call(this, direction);
         // Send event
         this.$elem.trigger('swipeSuccess', direction);
         // Setup next card
         this.card.setup.call(this);
+      },
+
+      // Unavailable swipe
+      ///////////////////////////////////////////////////////
+      swipeUnavailable: function(direction) {
+        this.$elem.trigger('swipeUnavailable', direction);
       }
 
     },
