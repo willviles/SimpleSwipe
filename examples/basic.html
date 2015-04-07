@@ -42,6 +42,10 @@
         $('.simple-swipe-stack').SimpleSwipe({
           something: true
         });
+
+        $('.simple-swipe-stack').on('swipeSuccess', function(event, direction) {
+          alert(direction + ' swipe SUCCESS!');
+        });
       });
     </script>
   </body>

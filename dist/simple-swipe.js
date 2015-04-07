@@ -127,7 +127,7 @@ Author URI: http://vil.es/
       ///////////////////////////////////////////////////////
 
       next: function(direction) {
-        alert(direction + ' swipe SUCCESS!');
+        this.$elem.trigger('swipeSuccess', direction);
       }
 
     },
