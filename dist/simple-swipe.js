@@ -57,6 +57,7 @@ Author URI: http://vil.es/
         // If no cards, send cardsExhausted callback
         if (!$card.length > 0) {
           this.$elem.trigger('cardsExhausted');
+          this.buttons.setup.call(this, -1);
           return false;
         }
 
@@ -99,7 +100,7 @@ Author URI: http://vil.es/
       // Available Swipe Directions
       availableDirections: function() {
         var card = this.$currentCard,
-            defaultDirections = ['up', 'right', 'down', 'left'],
+            defaultDirections = ['left', 'up', 'down', 'right'],
             availableDirections = [];
 
         $.each(defaultDirections, function(i, direction) {
@@ -114,17 +115,15 @@ Author URI: http://vil.es/
       // Drag card
       ///////////////////////////////////////////////////////
       drag: function(x, y) {
-        this.$currentCard.css({
-         '-webkit-transform': 'translate3d(0, 0, 0) translate(' + x + 'px, ' + y + 'px)'
-        });
+        this.$currentCard.css({ translate: [x,y] });
       },
 
       // Spring back
       ///////////////////////////////////////////////////////
       springBack: function() {
-        this.$currentCard.css({
-         '-webkit-transform': 'translate3d(0, 0, 0) translate(0px, 0px)'
-        });
+        this.$currentCard.transition({
+          x: 0, y: 0
+        }, 200, 'easeOutBack');
       },
 
       // Throw Out
@@ -138,7 +137,6 @@ Author URI: http://vil.es/
       // Handle Swipe
       ///////////////////////////////////////////////////////
       handleSwipe: function(event, availableDirections) {
-
         var directionKey = event.direction,
             directionKeys = {'8': 'up', '4': 'right', '2': 'left', '16': 'down'},
             direction = directionKeys[directionKey];
@@ -169,24 +167,37 @@ Author URI: http://vil.es/
 
     },
 
+    // Buttons
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
     buttons: {
 
+      // Setup
+      ///////////////////////////////////////////////////////
       setup: function(availableDirections) {
         var $simpleSwipeBtns = this.$elem.find('.simple-swipe-btns'),
             $buttonList = $simpleSwipeBtns.find('ul'),
             btns = '',
             that = this;
 
-        console.log(availableDirections);
+        if (availableDirections === -1) {
+          $buttonList.html('');
+          return false;
+        }
 
         $.each(availableDirections, function(i, direction) {
           var buttonText = that.options.buttonText[direction];
-          btns = btns + '<li>' + buttonText + '</li>';
+          btns = btns + '<li class="' + direction + '" data-direction="' + direction + '">' + buttonText + '</li>';
         });
 
-        console.log(btns);
-
         $buttonList.html('').append(btns);
+
+        $buttonList.find('li').on('click', function() {
+          var direction = $(this).data('direction');
+          that.card.swipeSuccess.call(that, direction);
+        });
       }
 
     }
