@@ -129,9 +129,36 @@ Author URI: http://vil.es/
       // Throw Out
       ///////////////////////////////////////////////////////
       throwOut: function(direction) {
-        console.log(direction);
-        // TO-DO: Animate dependent upon direction, then destroy...
-        this.$currentCard.remove();
+
+        var stackWidth = this.$elem.width(),
+            throwOutHoriz = stackWidth * 1.5,
+            stackHeight = this.$elem.height(),
+            throwOutVert = stackHeight * 1.5,
+            that = this,
+            coords;
+
+        switch(direction) {
+          case 'up':
+            coords = { x: 0, y: -throwOutVert }
+            break;
+          case 'right':
+            coords = { x: throwOutHoriz, y: 0 }
+            break;
+          case 'down':
+            coords = { x: 0, y: throwOutVert }
+            break;
+          case 'left':
+            coords = { x: -throwOutHoriz, y: 0 }
+            break;
+        }
+
+        this.$currentCard.transition(coords, 200, 'easeOutQuad', function() {
+          // Remove card
+          $(this).remove();
+          // Confirm success
+          that.card.swipeSuccess.call(that, direction);
+        });
+
       },
 
       // Handle Swipe
@@ -142,7 +169,7 @@ Author URI: http://vil.es/
             direction = directionKeys[directionKey];
 
         if ($.inArray(direction, availableDirections) !== -1) {
-          this.card.swipeSuccess.call(this, direction);
+          this.card.throwOut.call(this, direction);
         } else {
           this.card.swipeUnavailable.call(this, direction);
         }
@@ -151,8 +178,6 @@ Author URI: http://vil.es/
       // Successful swipe
       ///////////////////////////////////////////////////////
       swipeSuccess: function(direction) {
-        // Throw the card out
-        this.card.throwOut.call(this, direction);
         // Send event
         this.$elem.trigger('swipeSuccess', direction);
         // Setup next card
