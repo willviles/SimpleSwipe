@@ -1,6 +1,6 @@
 /*
-Script Name: Simple Swipe
-Description: Creates a simple Tinder-like swiping interface
+Script Name: StackSwipe
+Description: An ultra-simple and elegant card swiping plugin
 Version: 1
 Author: Will Viles
 Author URI: http://vil.es/
@@ -9,10 +9,10 @@ Author URI: http://vil.es/
 (function( $, window, document, undefined ){
 
   // our plugin constructor
-  var SimpleSwipe = function( elem, options ){
+  var StackSwipe = function( elem, options ){
       this.elem = elem;
       this.$elem = $(elem);
-      this.$stack = this.$elem.find('.simple-swipe-stack');
+      this.$stack = this.$elem.find('.stack-swipe-stack');
       this.$currentCard = this.$stack.find('li:first-of-type');
       this.options = $.extend({
         // Defaults
@@ -26,7 +26,7 @@ Author URI: http://vil.es/
     };
 
   // the plugin prototype
-  SimpleSwipe.prototype = {
+  StackSwipe.prototype = {
 
     // Initialize
     ///////////////////////////////////////////////////////
@@ -223,8 +223,8 @@ Author URI: http://vil.es/
       // Setup
       ///////////////////////////////////////////////////////
       setup: function(availableDirections) {
-        var $simpleSwipeBtns = this.$elem.find('.simple-swipe-btns'),
-            $buttonList = $simpleSwipeBtns.find('ul'),
+        var $StackSwipeBtns = this.$elem.find('.stack-swipe-btns'),
+            $buttonList = $StackSwipeBtns.find('ul'),
             btns = '',
             that = this;
 
@@ -251,9 +251,9 @@ Author URI: http://vil.es/
 
   }; // End of all functions
 
-  $.fn.SimpleSwipe = function(options) {
+  $.fn.StackSwipe = function(options) {
     return this.each(function() {
-      new SimpleSwipe(this, options).init();
+      new StackSwipe(this, options).init();
     });
   };
 
