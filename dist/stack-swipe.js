@@ -54,13 +54,8 @@ Author URI: http://vil.es/
 
       setup: function() {
         // Get first card in the stack
-        var $allCards = this.$stack.find('li');
-
-        if (this.options.devMode === true) {
-          console.log($allCards);
-        }
-
-        var $firstCard = $allCards.filter(':first-of-type'),
+        var $allCards = this.$stack.find('li'),
+            $firstCard = $allCards.filter(':first-of-type'),
             $nextCard = $allCards.filter(':nth-of-type(2)');
 
         // If no cards, send cardsExhausted callback
