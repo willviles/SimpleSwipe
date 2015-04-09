@@ -101,13 +101,3 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
         text-align: center;
         vertical-align: middle;
         cursor: pointer; }
-
-html, body {
-  height: 100%;
-  width: 100%; }
-
-.stack-swipe-stack {
-  background-color: #f2f2f2; }
-  .stack-swipe-stack li {
-    background-color: black;
-    color: white; }
