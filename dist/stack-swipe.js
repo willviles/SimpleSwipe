@@ -176,11 +176,11 @@ Author URI: http://vil.es/
 
         this.$currentCard.transition(coords, 200, 'easeOutQuad', function() {
           // Remove card
-          $(this).remove();
+          that.$currentCard.remove();
           // Return swipe status to false
           that.isSwiping = false;
           // Confirm success
-          that.card.swipeSuccess.call(that, $(this), direction);
+          that.card.swipeSuccess.call(that, that.$currentCard, direction);
         });
 
       },
@@ -203,8 +203,9 @@ Author URI: http://vil.es/
       // Successful swipe
       ///////////////////////////////////////////////////////
       swipeSuccess: function(card, direction) {
+        console.log(direction);
         // Send event
-        this.$elem.trigger('swipeSuccess', card, direction);
+        this.$elem.trigger('swipeSuccess', [card, direction]);
         // Setup next card
         this.card.setup.call(this);
       },
