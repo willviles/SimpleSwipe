@@ -13,7 +13,8 @@ Author URI: http://vil.es/
       this.elem = elem;
       this.$elem = $(elem);
       this.$stack = this.$elem.find('.stack-swipe-stack');
-      this.$currentCard = this.$stack.find('li:first-of-type');
+      this.$allCards = this.$stack.find('li');
+      this.$currentCard = this.$allCards.filter(':first-of-type');
       this.options = $.extend({
         // Defaults
         buttonText: {
@@ -52,8 +53,9 @@ Author URI: http://vil.es/
 
       setup: function() {
         // Get first card in the stack
-        var $firstCard = this.$stack.find('li:first-of-type'),
-            $nextCard = this.$stack.find('li:nth-of-type(2)');
+        var $allCards = this.$stack.find('li'),
+            $firstCard = $allCards.filter(':first-of-type'),
+            $nextCard = $allCards.filter(':nth-of-type(2)');
 
         // If no cards, send cardsExhausted callback
         if (!$firstCard.length > 0) {
@@ -65,6 +67,7 @@ Author URI: http://vil.es/
         // Otherwise, let's set up the card
 
         // Save cards to variables on the plugin
+        this.$allCards = $allCards;
         this.$currentCard = $firstCard;
         this.$nextCard = $nextCard;
 
