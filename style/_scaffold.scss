@@ -9,7 +9,7 @@
       @include opacity(0);
       @include scale(.8);
       z-index: -1;
-      &:nth-of-type(1) { z-index: 3; }
+      &:nth-of-type(1) { z-index: 3; cursor: move; }
       &:nth-of-type(2) { z-index: 2; }
       &.peek {
         @include opacity(.5);

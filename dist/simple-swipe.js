@@ -85,7 +85,6 @@ Author URI: http://vil.es/
 
         // On a successful swipe
         card.on('swipe', function(event) {
-          that.isSwiping = true;
           that.card.handleSwipe.call(that, event, availableDirections);
         });
 
@@ -190,6 +189,7 @@ Author URI: http://vil.es/
             direction = directionKeys[directionKey];
 
         if ($.inArray(direction, availableDirections) !== -1) {
+          this.isSwiping = true;
           this.card.throwOut.call(this, direction);
         } else {
           this.card.swipeUnavailable.call(this, direction);
