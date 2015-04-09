@@ -203,7 +203,6 @@ Author URI: http://vil.es/
       // Successful swipe
       ///////////////////////////////////////////////////////
       swipeSuccess: function(card, direction) {
-        console.log(direction);
         // Send event
         this.$elem.trigger('swipeSuccess', [card, direction]);
         // Setup next card
