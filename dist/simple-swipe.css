@@ -74,6 +74,13 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
         z-index: 3; }
       .simple-swipe .simple-swipe-stack li:nth-of-type(2) {
         z-index: 2; }
+      .simple-swipe .simple-swipe-stack li.peek {
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+        opacity: 0.5;
+        -moz-transform: scale(0.9, 0.9);
+        -ms-transform: scale(0.9, 0.9);
+        -webkit-transform: scale(0.9, 0.9);
+        transform: scale(0.9, 0.9); }
   .simple-swipe .simple-swipe-btns {
     position: absolute;
     top: 80%;

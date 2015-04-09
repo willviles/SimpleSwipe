@@ -52,20 +52,24 @@ Author URI: http://vil.es/
 
       setup: function() {
         // Get first card in the stack
-        $card = this.$stack.find('li:first-of-type');
+        var $firstCard = this.$stack.find('li:first-of-type'),
+            $nextCard = this.$stack.find('li:nth-of-type(2)');
 
         // If no cards, send cardsExhausted callback
-        if (!$card.length > 0) {
+        if (!$firstCard.length > 0) {
           this.$elem.trigger('cardsExhausted');
           this.buttons.setup.call(this, -1);
           return false;
         }
 
         // Otherwise, let's set up the card
-        this.$currentCard = $card;
+
+        // Save cards to variables on the plugin
+        this.$currentCard = $firstCard;
+        this.$nextCard = $nextCard;
 
         // Setup Hammer.js handler
-        var card = new Hammer($card[0]),
+        var card = new Hammer(this.$currentCard[0]),
             availableDirections = this.card.availableDirections.call(this),
             that = this;
 
@@ -73,7 +77,7 @@ Author URI: http://vil.es/
         this.buttons.setup.call(this, availableDirections);
 
         // Animate card in
-        $card.transition({ opacity: 1, scale: 1 });
+        this.$currentCard.transition({ opacity: 1, scale: 1 });
 
         // Set pan & swipe options
         card.get('pan').set({ direction: Hammer.DIRECTION_ALL });
@@ -81,11 +85,17 @@ Author URI: http://vil.es/
 
         // On a successful swipe
         card.on('swipe', function(event) {
+          that.isSwiping = true;
           that.card.handleSwipe.call(that, event, availableDirections);
         });
 
         // Starting the swipe
-        card.on('panstart', function(event) { that.$elem.trigger('swipeStart'); });
+        card.on('panstart', function(event) {
+          that.$nextCard.transition({ opacity: .5, scale: .9 }, function() {
+            $(this).addClass('peek');
+          });
+          that.$elem.trigger('swipeStart');
+        });
 
         // Moving the card
         card.on('panmove', function(event) {
@@ -95,6 +105,12 @@ Author URI: http://vil.es/
 
         // Dropping the card
         card.on('panend', function(event) {
+          // If we've got a swipe on the go, don't call panend
+          if (that.isSwiping == true) { return false; }
+
+          that.$nextCard.transition({ opacity: 0, scale: .8 }, function() {
+            $(this).removeClass('peek');
+          });
           that.$elem.trigger('swipeDrop');
           that.card.springBack.call(that);
         });
@@ -158,6 +174,8 @@ Author URI: http://vil.es/
         this.$currentCard.transition(coords, 200, 'easeOutQuad', function() {
           // Remove card
           $(this).remove();
+          // Return swipe status to false
+          that.isSwiping = false;
           // Confirm success
           that.card.swipeSuccess.call(that, direction);
         });
