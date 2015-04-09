@@ -72,6 +72,9 @@ Author URI: http://vil.es/
         // Setup buttons
         this.buttons.setup.call(this, availableDirections);
 
+        // Animate card in
+        $card.transition({ opacity: 1, scale: 1 });
+
         // Set pan & swipe options
         card.get('pan').set({ direction: Hammer.DIRECTION_ALL });
         card.get('swipe').set({ direction: Hammer.DIRECTION_ALL, threshold: 20 });
@@ -221,7 +224,7 @@ Author URI: http://vil.es/
 
         $buttonList.find('li').on('click', function() {
           var direction = $(this).data('direction');
-          that.card.swipeSuccess.call(that, direction);
+          that.card.throwOut.call(that, direction);
         });
       }
 

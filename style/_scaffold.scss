@@ -9,12 +9,8 @@
       @include opacity(0);
       @include scale(.8);
       z-index: -1;
-      &:first-of-type {
-        @include opacity(1);
-        @include scale(1);
-        @include transition(opacity .3s, transform .3s);
-        z-index: 10;
-      }
+      &:nth-of-type(1) { z-index: 3; }
+      &:nth-of-type(2) { z-index: 2; }
     }
   }
 
