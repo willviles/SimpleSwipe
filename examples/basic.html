@@ -37,7 +37,8 @@
       $(document).ready(function() {
         var simpleSwipe = $('.stack-swipe').StackSwipe();
 
-        simpleSwipe.on('swipeSuccess', function(event, direction) {
+        simpleSwipe.on('swipeSuccess', function(event, card, direction) {
+          console.log($(card));
           alert(direction + ' swipe SUCCESS!');
         });
 

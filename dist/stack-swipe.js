@@ -180,7 +180,7 @@ Author URI: http://vil.es/
           // Return swipe status to false
           that.isSwiping = false;
           // Confirm success
-          that.card.swipeSuccess.call(that, direction);
+          that.card.swipeSuccess.call(that, $(this), direction);
         });
 
       },
@@ -202,9 +202,9 @@ Author URI: http://vil.es/
 
       // Successful swipe
       ///////////////////////////////////////////////////////
-      swipeSuccess: function(direction) {
+      swipeSuccess: function(card, direction) {
         // Send event
-        this.$elem.trigger('swipeSuccess', direction);
+        this.$elem.trigger('swipeSuccess', card, direction);
         // Setup next card
         this.card.setup.call(this);
       },
