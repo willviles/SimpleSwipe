@@ -23,6 +23,16 @@ Author URI: http://vil.es/
           'down': '&darr;',
           'right': '&rarr;'
         },
+        peek: {
+          from: {
+            opacity: 0,
+            scale: .8
+          },
+          to: {
+            opacity: .5,
+            scale: .9
+          }
+        },
         devMode: false
       }, options);
     };
@@ -94,7 +104,7 @@ Author URI: http://vil.es/
 
         // Starting the swipe
         card.on('panstart', function(event) {
-          that.$nextCard.transition({ opacity: .5, scale: .9 }, function() {
+          that.$nextCard.transition({ opacity: that.options.peek.to.opacity, scale: that.options.peek.to.scale }, function() {
             $(this).addClass('peek');
           });
           that.$elem.trigger('swipeStart');
@@ -111,7 +121,7 @@ Author URI: http://vil.es/
           // If we've got a swipe on the go, don't call panend
           if (that.isSwiping == true) { return false; }
 
-          that.$nextCard.transition({ opacity: 0, scale: .8 }, function() {
+          that.$nextCard.transition({ opacity: that.options.peek.from.opacity, scale: that.options.peek.from.scale }, function() {
             $(this).removeClass('peek');
           });
           that.$elem.trigger('swipeDrop');

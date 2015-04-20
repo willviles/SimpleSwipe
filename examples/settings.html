@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Swipe Demo (Settings)</title>
+    <!-- Dependencies -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/jquery.transit/jquery.transit.js"></script>
+    <script src="../bower_components/hammerjs/hammer.min.js"></script>
+    <!-- Include Stack Swipe -->
+    <script src="../dist/stack-swipe.js"></script>
+    <link rel="stylesheet" type="text/css" href="../style/stack-swipe.css">
+    <link rel="stylesheet" type="text/css" href="../style/examples/basic/style.css">
+
+    <meta name="viewport" content="user-scalable=no,width=device-width" />
+  </head>
+  <body>
+    <div class="stack-swipe">
+    <!-- Stack -->
+      <ul class="stack-swipe-stack">
+        <li data-swipe-up="true" data-swipe-right="true" data-swipe-left="true">
+          Card 1
+        </li>
+        <li data-swipe-right="true" data-swipe-left="true">
+          Card 2
+        </li>
+        <li data-swipe-up="true" data-swipe-down="true">
+          Card 3
+        </li>
+        <li data-swipe-up="true" data-swipe-right="true" data-swipe-down="true" data-swipe-left="true">
+          Card 4
+        </li>
+      </ul>
+      <div class="stack-swipe-btns"><ul><!-- Inject buttons via jQuery --></ul></div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var simpleSwipe = $('.stack-swipe').StackSwipe({
+          peek: {
+            from: {
+              opacity: 0,
+              scale: .8
+            },
+            to: {
+              opacity: .2,
+              scale: .9
+            }
+          }
+        });
+
+        simpleSwipe.on('swipeSuccess', function(event, card, direction) {
+          console.log($(card));
+          alert(direction + ' swipe SUCCESS!');
+        });
+
+/*
+        simpleSwipe.on('swipeUnavailable', function(event, direction) {
+          alert(direction + ' swipe unavailable!');
+        });
+*/
+
+        simpleSwipe.on('cardsExhausted', function() {
+          console.log('All cards exhausted');
+        });
+
+/*
+        simpleSwipe.on('swipeStart', function() {
+          console.log('swipe started');
+        });
+*/
+
+/*
+        simpleSwipe.on('swipeDrop', function() {
+          console.log('swipe dropped');
+        });
+*/
+
+/*
+        simpleSwipe.on('swipeMove', function(event, coords) {
+          console.log(coords.x);
+          console.log(coords.y);
+        });
+*/
+      });
+    </script>
+  </body>
+</html>
