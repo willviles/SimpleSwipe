@@ -36,16 +36,12 @@
     <script type="text/javascript">
       $(document).ready(function() {
         var simpleSwipe = $('.stack-swipe').StackSwipe({
+
           peek: {
-            from: {
-              opacity: 0,
-              scale: .8
-            },
-            to: {
-              opacity: .2,
-              scale: .9
-            }
-          }
+            from: { opacity: 0, scale: .8 },
+            to: { opacity: .2, scale: .9 }
+          },
+
         });
 
         simpleSwipe.on('swipeSuccess', function(event, card, direction) {

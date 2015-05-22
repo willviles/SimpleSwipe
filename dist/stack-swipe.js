@@ -249,6 +249,11 @@ Author URI: http://vil.es/
 
         $.each(availableDirections, function(i, direction) {
           var buttonText = that.options.buttonText[direction];
+
+          if ($.isFunction(buttonText)) {
+            console.log('is a function');
+            buttonText = buttonText.call(that);
+          }
           btns = btns + '<li class="' + direction + '" data-direction="' + direction + '">' + buttonText + '</li>';
         });
 
